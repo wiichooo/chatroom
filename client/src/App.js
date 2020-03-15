@@ -27,7 +27,6 @@ class App extends React.Component {
         this.state.msgs.shift();
       }
       this.setState({ msgs: [...this.state.msgs, msg] });
-      console.table(this.state.msgs);
     });
     socket.on("system message", msg => {
       if (this.state.msgs.length === 10) {
