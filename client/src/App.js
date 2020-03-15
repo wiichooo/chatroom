@@ -22,14 +22,21 @@ class App extends React.Component {
     const { endpoint } = this.state;
     const socket = socketIOClient(endpoint);
     socket.on("update current users", users => this.setState({ users: users }));
-    socket.on("new message", msg =>
-      this.setState({ msgs: [...this.state.msgs, msg] })
-    );
-    socket.on("system message", msg =>
+    socket.on("new message", msg => {
+      if (this.state.msgs.length === 10) {
+        this.state.msgs.shift();
+      }
+      this.setState({ msgs: [...this.state.msgs, msg] });
+      console.table(this.state.msgs);
+    });
+    socket.on("system message", msg => {
+      if (this.state.msgs.length === 10) {
+        this.state.msgs.shift();
+      }
       this.setState({
         msgs: [...this.state.msgs, { username: "system message", content: msg }]
-      })
-    );
+      });
+    });
   }
 
   handleMessage(msg) {
@@ -61,6 +68,9 @@ class App extends React.Component {
 
       socket.emit("new client username", socket.username);
       this.setState({ user: user });
+      if (this.state.msgs.length === 10) {
+        this.state.msgs.shift();
+      }
       this.setState({ msgs: [...this.state.msgs, msg] });
       this.setState({ chat: true });
     } else {
