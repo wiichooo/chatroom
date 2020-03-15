@@ -42,9 +42,9 @@ function clientConnected(socket) {
 
 function sendMessage(message) {
   // Broadcast the message to all clients
-  if (message.content.includes("/s=")) {
+  if (message.content.includes("/stock=")) {
     let stock = message.content
-      .substring("/s=".length, message.content.length)
+      .substring("/stock=".length, message.content.length)
       .toLowerCase()
       .trim();
     csv()

@@ -50,14 +50,14 @@ class chat extends Component {
             </Row>
             <Container>
               <Row>
-                You can ask bot-share about a stock with '/s=' and it will be
+                You can ask bot-share about a stock with '/stock=' and it will be
                 consulted in https://stooq.com/{" "}
               </Row>
-              <Row>/s=aapl.us</Row>
-              <Row>/s=DELL.US</Row>
-              <Row>/s=AMZN.US</Row>
-              <Row>/s=NFLX.US</Row>
-              <Row>/s=DIS.US</Row>
+              <Row>/stock=aapl.us</Row>
+              <Row>/stock=DELL.US</Row>
+              <Row>/stock=AMZN.US</Row>
+              <Row>/stock=NFLX.US</Row>
+              <Row>/stock=DIS.US</Row>
             </Container>
             <Row>
               <Form id="messageForm" style={{ width: "100%" }}>

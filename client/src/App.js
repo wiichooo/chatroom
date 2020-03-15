@@ -12,7 +12,8 @@ class App extends React.Component {
       char: false,
       users: [],
       msgs: [],
-      msg: ""
+      msg: "",
+      maxMessages: 50
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
@@ -23,13 +24,13 @@ class App extends React.Component {
     const socket = socketIOClient(endpoint);
     socket.on("update current users", users => this.setState({ users: users }));
     socket.on("new message", msg => {
-      if (this.state.msgs.length === 10) {
+      if (this.state.msgs.length === this.state.maxMessages) {
         this.state.msgs.shift();
       }
       this.setState({ msgs: [...this.state.msgs, msg] });
     });
     socket.on("system message", msg => {
-      if (this.state.msgs.length === 10) {
+      if (this.state.msgs.length === this.state.maxMessages) {
         this.state.msgs.shift();
       }
       this.setState({
@@ -67,7 +68,7 @@ class App extends React.Component {
 
       socket.emit("new client username", socket.username);
       this.setState({ user: user });
-      if (this.state.msgs.length === 10) {
+      if (this.state.msgs.length === this.state.maxMessages) {
         this.state.msgs.shift();
       }
       this.setState({ msgs: [...this.state.msgs, msg] });
