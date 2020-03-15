@@ -49,9 +49,16 @@ function sendMessage(message) {
       .trim();
     csv()
       .fromStream(
-        request.get(
-          "https://stooq.com/q/l/?s=" + stock + "&f=sd2t2ohlcv&h&e=csv"
-        )
+        request
+          .get("https://stooq.com/q/l/?s=" + stock + "&f=sd2t2ohlcv&h&e=csv")
+          .on("error", function() {
+            console.error("GET request error");
+            io.sockets.emit("new message", {
+                content: "It was not possible to connect with stooq. Maybe the internet connection?",
+                username: "bot-share",
+                timestamp: new Date()
+            });
+          })
       )
       .subscribe(json => {
         if (!json.Open.includes("N/D")) {
@@ -60,7 +67,6 @@ function sendMessage(message) {
             username: "bot-share",
             timestamp: new Date()
           });
-          console.log(json.Symbol + " quote is $" + json.Open + " per share.");
         } else {
           io.sockets.emit("new message", {
             content: stock + " stock share was not found.",
