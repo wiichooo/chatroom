@@ -1,5 +1,7 @@
 # chatroom
 
+[![Build Status](https://travis-ci.org/wiichooo/chatroom.svg?branch=master)](https://travis-ci.org/github/wiichooo/chatroom)
+
 The application allows multiple users to talk to each other in the chatroom. <br/>
 A specific command allows users to consult stock quotes from a specific URL.
 
@@ -49,3 +51,5 @@ $ npm test
 ##### TODO:
 - ~~Set max messages to view to 50~~
 - ~~Change the stock bot call to /stock=~~
+- ~~Handle exception or stock not found within the bot's API request~~
+- Multiple chatrooms
